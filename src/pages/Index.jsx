@@ -66,7 +66,7 @@ const Index = () => {
       <div className="flex flex-1 p-4">
         {/* Left sidebar - User Profile */}
         <motion.div 
-          className="w-[30%] mr-4 space-y-4"
+          className="w-[30%] mr-4"
           initial={isFirstLoad ? { x: -300, opacity: 0 } : false}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
@@ -76,69 +76,41 @@ const Index = () => {
           ) : userError ? (
             <div>Error loading user: {userError.message}</div>
           ) : user ? (
-            <>
-              <Card className="p-4 shadow-lg bg-white rounded-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:scale-105 border border-gray-200 hover:border-gray-300 relative">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="ghost" size="icon" className="absolute top-2 right-2 hover:bg-gray-100">
-                      <Maximize2 className="h-4 w-4" />
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="w-11/12 max-w-4xl h-[90vh] max-h-[90vh]">
-                    <ScrollArea className="h-full pr-4">
-                      <div className="p-6">
-                        <ExpandedProfileContent user={user} />
-                      </div>
-                    </ScrollArea>
-                  </DialogContent>
-                </Dialog>
-                <div className="flex flex-col items-center">
-                  <Avatar className="w-24 h-24 mb-2">
-                    <AvatarImage src={user.image_url || "/placeholder.svg"} alt={user.name} />
-                    <AvatarFallback>{user.name?.charAt(0) || 'U'}</AvatarFallback>
-                  </Avatar>
-                  <h2 className="text-xl font-semibold">{user.name}</h2>
-                  <p className="text-sm text-gray-600 text-center mt-2">{user.current_title}</p>
-                </div>
-              </Card>
-              
-              <Card className="p-4 shadow-lg bg-white rounded-lg space-y-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:scale-105 border border-gray-200 hover:border-gray-300">
+            <Card className="p-6 shadow-lg bg-white rounded-lg border border-gray-200">
+              <h2 className="text-2xl font-bold text-purple-600 mb-4">Your Profile</h2>
+              <div className="flex items-center mb-6">
+                <Avatar className="w-16 h-16 mr-4">
+                  <AvatarImage src={user.image_url || "/placeholder.svg"} alt={user.name} />
+                  <AvatarFallback>{user.name?.charAt(0) || 'U'}</AvatarFallback>
+                </Avatar>
                 <div>
-                  <p className="font-semibold">Company</p>
-                  <p>{user.company_name || 'Veloxforce'}</p>
+                  <h3 className="text-xl font-semibold">{user.name}</h3>
+                  <p className="text-sm text-gray-600">{user.career_stage || 'Career Stage Tagline'}</p>
                 </div>
-                <div>
-                  <p className="font-semibold">Location</p>
-                  <p>{user.location || 'Munich, Bavaria, Germany'}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="border border-gray-300 rounded p-3">
+                  <h4 className="font-semibold mb-2">Key Skills</h4>
+                  <p>{user.skills?.join(', ') || 'No skills listed'}</p>
                 </div>
-                <div>
-                  <p className="font-semibold">Industry</p>
-                  <p>{user.industry || 'AI/Software'}</p>
+                <div className="border border-gray-300 rounded p-3">
+                  <h4 className="font-semibold mb-2">Business Goals</h4>
+                  <p>{user.business_goals?.join(', ') || 'No goals listed'}</p>
                 </div>
-              </Card>
-              
-              <Card className="p-4 shadow-lg bg-white rounded-lg space-y-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:scale-105 border border-gray-200 hover:border-gray-300">
-                <div>
-                  <p className="font-semibold">Email</p>
-                  <p className="break-words">{user.main_email}</p>
-                </div>
-                <div>
-                  <p className="font-semibold">LinkedIn</p>
-                  <a href={user.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline break-words">Profile</a>
-                </div>
-              </Card>
-              
-              <Card className="p-4 shadow-lg bg-white rounded-lg space-y-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:scale-105 border border-gray-200 hover:border-gray-300">
-                <div>
-                  <p className="font-semibold">Website</p>
-                  <a href={user.company_website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Veloxforce</a>
-                </div>
-                <div>
-                  <p className="font-semibold">Company LinkedIn</p>
-                  <a href={user.company_linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Company Page</a>
-                </div>
-              </Card>
-            </>
+              </div>
+              <div className="border border-gray-300 rounded p-3 mb-4">
+                <h4 className="font-semibold mb-2">Interests</h4>
+                <p>{user.interests?.join(', ') || 'No interests listed'}</p>
+              </div>
+              <div className="border border-gray-300 rounded p-3 mb-4">
+                <h4 className="font-semibold mb-2">Communication Preferences</h4>
+                <p>{user.preferred_communication || 'Not specified'}</p>
+              </div>
+              <div className="border border-gray-300 rounded p-3">
+                <h4 className="font-semibold mb-2">Location</h4>
+                <p>{user.location || 'Not specified'}</p>
+              </div>
+            </Card>
           ) : (
             <div>User not found</div>
           )}
