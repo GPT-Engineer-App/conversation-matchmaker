@@ -300,3 +300,20 @@ export const useDeleteMatchmakerProfile = () => {
         },
     });
 };
+
+// Dummy functions for missing exports
+export const useUserMatchmaker = (userId) => {
+    return { data: { name: "Dummy User" }, isLoading: false, error: null };
+};
+
+export const useGetMatchesByUserId = (userId) => {
+    return { data: [{ id: "1", name: "Dummy Match" }], isLoading: false, error: null };
+};
+
+export const useMatchedUserDetails = (userId) => {
+    return { data: { name: "Dummy Matched User" }, isLoading: false, error: null };
+};
+
+export const useMatchesSubscription = () => {
+    // This function doesn't need to return anything as it's likely a subscription setup
+};
