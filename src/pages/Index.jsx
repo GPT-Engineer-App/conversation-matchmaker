@@ -14,8 +14,8 @@ const Index = () => {
   const [expandedMatchId, setExpandedMatchId] = useState(null);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  const userId = '333e05cd-70b9-4455-b15c-928c890bdd02'; // Default to Marius Wilsch's ID
-  const { data: user, isLoading: userLoading, error: userError } = useUserMatchmaker(userId);
+  const profileId = '7f4c2fb8-d3e6-4671-b45e-f2ffb76a1d12'; // Hardcoded profile ID
+  const { data: user, isLoading: userLoading, error: userError } = useMatchmakerProfile(profileId);
   const { data: matches, isLoading: matchesLoading, error: matchesError } = useGetMatchesByUserId(userId);
 
   // Subscribe to matches updates
@@ -85,22 +85,30 @@ const Index = () => {
                 </Avatar>
                 <div>
                   <h3 className="text-xl font-semibold">{user.name}</h3>
-                  <p className="text-sm text-gray-600">{user.career_stage || 'Career Stage Tagline'}</p>
+                  <p className="text-sm text-gray-600">{user.career_stage || 'Career Stage'}</p>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="border border-gray-300 rounded p-3">
                   <h4 className="font-semibold mb-2">Key Skills</h4>
-                  <p>{user.skills?.join(', ') || 'No skills listed'}</p>
+                  <p>{user.key_skills?.join(', ') || 'No skills listed'}</p>
                 </div>
                 <div className="border border-gray-300 rounded p-3">
-                  <h4 className="font-semibold mb-2">Business Goals</h4>
-                  <p>{user.business_goals?.join(', ') || 'No goals listed'}</p>
+                  <h4 className="font-semibold mb-2">Industry</h4>
+                  <p>{user.industry || 'Not specified'}</p>
                 </div>
+              </div>
+              <div className="border border-gray-300 rounded p-3 mb-4">
+                <h4 className="font-semibold mb-2">Business Goals</h4>
+                <p>{user.business_goals?.join(', ') || 'No goals listed'}</p>
               </div>
               <div className="border border-gray-300 rounded p-3 mb-4">
                 <h4 className="font-semibold mb-2">Interests</h4>
                 <p>{user.interests?.join(', ') || 'No interests listed'}</p>
+              </div>
+              <div className="border border-gray-300 rounded p-3 mb-4">
+                <h4 className="font-semibold mb-2">Hobbies</h4>
+                <p>{user.hobbies?.join(', ') || 'No hobbies listed'}</p>
               </div>
               <div className="border border-gray-300 rounded p-3 mb-4">
                 <h4 className="font-semibold mb-2">Communication Preferences</h4>
